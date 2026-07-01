@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mag Frank al met pensioen?</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .status {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .status.ja {
+            color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Mag Frank al met pensioen?</h1>
+        <div id="countdown" class="status">Berekenen...</div>
+    </div>
+
+    <script>
+        function berekenPensioen() {
+            // Doeldatum: 31 oktober 2027 (Let op: Maanden zijn 0-geïndexeerd in JS, dus oktober = 9)
+            const doelDatum = new Date(2025, 9, 31);
+            const vandaag = new Date();
+            
+            // Zet beide datums op middernacht om puur in dagen te rekenen
+            doelDatum.setHours(0,0,0,0);
+            vandaag.setHours(0,0,0,0);
+
+            const countdownElement = document.getElementById('countdown');
+
+            if (vandaag >= doelDatum) {
+                countdownElement.innerText = "Ja";
+                countdownElement.classList.add("ja");
+            } else {
+                // Verschil in milliseconden omrekenen naar dagen
+                const verschilInMs = doelDatum - vandaag;
+                const aantalDagen = Math.ceil(verschilInMs / (1000 * 60 * 60 * 24));
+                
+                countdownElement.innerText = `Nee, nog ${aantalDagen} dagen.`;
+            }
+        }
+
+        // Voer de functie uit zodra de pagina laadt
+        berekenPensioen();
+    </script>
+
+</body>
+</html>
